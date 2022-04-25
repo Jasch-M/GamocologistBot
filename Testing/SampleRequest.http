@@ -1,0 +1,7 @@
+﻿POST /v2/translate?auth_key=61024d7d-4f35-c948-bca2-42e1bfe7e091:fx> HTTP/1.0
+Host: api-free.deepl.com
+User-Agent: DiscordBot
+Accept: */*
+Content-Type: application/x-www-form-urlencoded
+
+auth_key=61024d7d-4f35-c948-bca2-42e1bfe7e091:fx&text=Hello, world&target_lang=FR

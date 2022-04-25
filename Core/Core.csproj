@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>Template</RootNamespace>
+        <LangVersion>latest</LangVersion>
+        <Authors>Garrett Bromley</Authors>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DeepL.net" Version="1.1.0" />
+        <PackageReference Include="Discord.Net" Version="2.1.1" />
+        <PackageReference Include="Google.Apis" Version="1.57.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Modules\InfoModule.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Modules\ChannelUpdate" />
+    </ItemGroup>
+
+</Project>

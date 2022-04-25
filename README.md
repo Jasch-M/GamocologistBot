@@ -1,2 +1,2 @@
-# GamocologistBot
-The bot used on the gamocologist's server
+# Discord.NET-Template
+Discord.NET template solution to use as a starter to any project
