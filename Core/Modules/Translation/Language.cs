@@ -1,4 +1,4 @@
-﻿namespace TranslatorBot.Modules.Translation
+﻿namespace Template.Modules.Translation
 {
     /// <summary>
     /// An enum representing a language which is supported by the translation engine.
@@ -101,14 +101,14 @@
         POLISH,
         
         /// <summary>
-        /// Represents the Portugeuse language used in Brazil.
+        /// Represents the Portuguese language used in Brazil.
         /// </summary>
-        PORTUGUEUSE_BRAZIL,
+        PORTUGUESE_BRAZIL,
         
         /// <summary>
-        /// Represents the Portugeuse language used in Europe and primarly in Portgual.
+        /// Represents the Portuguese language used in Europe and primarily in Portugal.
         /// </summary>
-        PORTUGUEUSE_EUROPEAN,
+        PORTUGUESE_EUROPEAN,
         
         /// <summary>
         /// Represents the Romanian language.

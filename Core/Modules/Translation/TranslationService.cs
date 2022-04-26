@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 using DeepL;
 using DeepL.Model;
@@ -15,7 +14,7 @@ namespace Template.Modules.Translation
         /// <summary>
         /// The <see cref="DeepL.Translator"/> which allows interactions and communications with the engine.
         /// </summary>
-        private static Translator Translator = TranslatorSetUp();
+        private static Translator _translator = TranslatorSetUp();
 
         /// <summary>
         /// Checks whether the translation API is running correctly.
@@ -32,7 +31,7 @@ namespace Template.Modules.Translation
         internal static async Task<bool> HasReachedCap()
         {
             if (!IsTranslatorOperational) return false;
-            Usage usage = await Translator.GetUsageAsync();
+            Usage usage = await _translator.GetUsageAsync();
             return usage.AnyLimitReached;
         }
 
@@ -53,8 +52,8 @@ namespace Template.Modules.Translation
                 return ("", "");
 
             TextResult translatorResponse = inputLanguageCode == "AUTOMATIC"
-                ? await Translator.TranslateTextAsync(text, null, outputLanguageCode)
-                : await Translator.TranslateTextAsync(text, inputLanguageCode, outputLanguageCode);
+                ? await _translator.TranslateTextAsync(text, null, outputLanguageCode)
+                : await _translator.TranslateTextAsync(text, inputLanguageCode, outputLanguageCode);
             string translatedText = translatorResponse.Text;
             string detectedLanguageCode = translatorResponse.DetectedSourceLanguageCode;
             (string text, string detectedLanguageCode) translationResult = (translatedText, detectedLanguageCode);
@@ -62,11 +61,11 @@ namespace Template.Modules.Translation
         }
 
         /// <summary>
-        /// Sets up the <see cref="Translator"/> object.
+        /// Sets up the <see cref="_translator"/> object.
         /// Tries to read the authentication key from "translator.txt".
         /// Tries to connect to the engine. Updates <see cref="IsTranslatorOperational"/> accordingly.
         /// </summary>
-        /// <returns>The set up translator. If the value is null, then the operation was unsuccesful</returns>
+        /// <returns>The set up translator. If the value is null, then the operation was unsuccessful</returns>
         private static Translator TranslatorSetUp()
         {
             DataAssociation dataAssociation = new DataAssociation("../../../Modules/Translation/translator_data.txt");
@@ -81,7 +80,7 @@ namespace Template.Modules.Translation
                     IsTranslatorOperational = true;
                     return translator;
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     IsTranslatorOperational = false;
                     return null;
@@ -99,7 +98,7 @@ namespace Template.Modules.Translation
         /// <returns>True if the reconnection was successful. False if the reconnection was a failure.</returns>
         internal static bool ReconnectToDeepL()
         {
-            Translator = TranslatorSetUp();
+            _translator = TranslatorSetUp();
             return IsTranslatorOperational;
         }
     }

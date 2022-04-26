@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using TranslatorBot.Modules.Translation;
+﻿using System.Threading.Tasks;
+using TranslatorBot;
 
-namespace TranslatorBot
+namespace Template
 {
-    internal class Program
+    internal static class Program
     {
         public static Task Main(string[] args)
             => Startup.RunAsync(args);

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace TranslatorBot.Modules.Translation
+namespace Template.Modules.Translation
 {
     /// <summary>
     ///     The Utils class provides many utility functions for other functions in the program.
@@ -23,7 +23,7 @@ namespace TranslatorBot.Modules.Translation
         /// </returns>
         internal static string RemoveUndesiredSymbols(string input, char[] undesiredSymbols = null)
         {
-            undesiredSymbols ??= new char[7] { '\n', '\t', ' ', '-', '_', '(', ')' };
+            undesiredSymbols ??= new [] { '\n', '\t', ' ', '-', '_', '(', ')' };
             HashSet<char> undesiredSymbolsSet = BuildUndesiredSymbolsHashSet(undesiredSymbols);
             StringBuilder purgedStringBuilder = new StringBuilder();
 
@@ -50,15 +50,15 @@ namespace TranslatorBot.Modules.Translation
         }
 
         /// <summary>
-        /// Divide a piece of text into segments that aren't longer than a speficied length.
+        /// Divide a piece of text into segments that aren't longer than a specified length.
         /// The function attempts to put the most sentences it can in the specified block sizes.
         /// Though it only puts whole sentences inside such blocks.
         /// It will cut off early if it can't fit the sentence in.
         /// Also after starting a new block, any whitespace in front of the first sentence is cleared.
         /// </summary>
         /// <param name="text">The text to divide up.</param>
-        /// <param name="maxLength">The length of the blocks. By default, this valus is set to 1024.</param>
-        /// <param name="initialText">An optional initialText that will be inserted at the begining
+        /// <param name="maxLength">The length of the blocks. By default, this value is set to 1024.</param>
+        /// <param name="initialText">An optional initialText that will be inserted at the beginning
         /// and counted as part of the first block.</param>
         /// <returns>A <see cref="List{T}"/> containing strings which are the divided up blocks.</returns>
         internal static List<string> DivideUpTextIntoFragmentsNicely(string text, int maxLength = 1024,
@@ -107,7 +107,6 @@ namespace TranslatorBot.Modules.Translation
         /// <returns>The new value for the local index which is the current index inside the current block.</returns>
         private static int SplitTextUpNicely(int maxLength, StringBuilder segmentBuilder, List<string> segments, ref int lastPeriod)
         {
-            int localIndex;
             string removedChars = "";
             int numberOfRemovedChars = 0;
             if (lastPeriod != -1)
@@ -132,7 +131,7 @@ namespace TranslatorBot.Modules.Translation
             segmentBuilder.Clear();
             segmentBuilder.Append(removedChars);
             lastPeriod = -1;
-            localIndex = numberOfRemovedChars;
+            int localIndex = numberOfRemovedChars;
             return localIndex;
         }
     }

@@ -1,9 +1,7 @@
-﻿using System.ComponentModel.Design;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Template.Modules.Translation;
-using TranslatorBot.Modules.Translation;
 
 namespace Template.Modules
 {

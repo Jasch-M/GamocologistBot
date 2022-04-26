@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Discord;
 
-namespace TranslatorBot.Modules.Translation
+namespace Template.Modules.Translation
 {
     /// <summary>
-    /// Contains methods for generating bot responses as embeded messages.
+    /// Contains methods for generating bot responses as embedded messages.
     /// </summary>
     public static class EmbedGenerator
     {
@@ -17,11 +17,13 @@ namespace TranslatorBot.Modules.Translation
         /// <returns>The generated embed.</returns>
         internal static Embed GenerateUnknownLanguageEmbed(string languageInput)
         {
-            EmbedBuilder unkownLanguageEmbedBuilder = BuildBotEmbedBase();
+            EmbedBuilder unknownLanguageEmbedBuilder = BuildBotEmbedBase();
 
-            EmbedFieldBuilder unknownLanguageField = new EmbedFieldBuilder();
-            unknownLanguageField.Name = $"Unkown language: {languageInput}";
-            unknownLanguageField.IsInline = true;
+            EmbedFieldBuilder unknownLanguageField = new EmbedFieldBuilder
+            {
+                Name = $"Unknown language: {languageInput}",
+                IsInline = true
+            };
             string possibleLanguages = GeneratePossibleLanguages();
             string finalMessage = "Here are the possible languages.\n" +
                                   "Case is ignored and any spaces, new lines, tabulations, dashes, " +
@@ -29,9 +31,9 @@ namespace TranslatorBot.Modules.Translation
                                   $"\n{possibleLanguages}";
             Console.WriteLine(finalMessage.Length);
             unknownLanguageField.Value = finalMessage;
-            unkownLanguageEmbedBuilder.AddField(unknownLanguageField);
+            unknownLanguageEmbedBuilder.AddField(unknownLanguageField);
 
-            Embed finalEmbed = unkownLanguageEmbedBuilder.Build();
+            Embed finalEmbed = unknownLanguageEmbedBuilder.Build();
             return finalEmbed;
         }
 
@@ -41,14 +43,15 @@ namespace TranslatorBot.Modules.Translation
         /// <returns>A basic embed builder to be used in other embed generators.</returns>
         private static EmbedBuilder BuildBotEmbedBase()
         {
-            EmbedBuilder botEmbedBase = new EmbedBuilder();
-            botEmbedBase.Author = GenerateBotAuthor();
-            botEmbedBase.Color = Color.DarkBlue;
-            botEmbedBase.Timestamp = DateTimeOffset.Now;
-            botEmbedBase.Title = "Translation Results";
-            //botEmbedBase.ImageUrl =
-            //    "https://cdns.c3dt.com/preview/9825728-com.deepl.translate.alllanguagetranslator.jpg";
-            botEmbedBase.Url = "https://gamocologist.com/bots/gamotranslator";
+            EmbedBuilder botEmbedBase = new EmbedBuilder
+            {
+                Author = GenerateBotAuthor(),
+                Color = Color.DarkBlue,
+                Timestamp = DateTimeOffset.Now,
+                Title = "Translation Results",
+                //botEmbedBase.ImageUrl = "https://cdns.c3dt.com/preview/9825728-com.deepl.translate.alllanguagetranslator.jpg";
+                Url = "https://gamocologist.com/bots/gamotranslator"
+            };
             return botEmbedBase;
         }
 
@@ -58,13 +61,12 @@ namespace TranslatorBot.Modules.Translation
         /// <returns>An embed author builder containing the author information for use in embeds.</returns>
         private static EmbedAuthorBuilder GenerateBotAuthor()
         {
-            EmbedAuthorBuilder embedAuthorBuilder = new EmbedAuthorBuilder();
-            embedAuthorBuilder.Name = "GamoTranslate";
-            embedAuthorBuilder.IconUrl =
-                "https://www.google.com/url?sa=i&url=https%3A%2F%2Fapitracker.io%2Fa%2Fdeepl&" +
-                "psig=AOvVaw028t84t0CBC87q4q-IuCMc&" +
-                "ust=1650642593447000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMDqzf3ApfcCFQAAAAAdAAAAABAO";
-            embedAuthorBuilder.Url = "https://gamocologist.com/bots/gamotranslator";
+            EmbedAuthorBuilder embedAuthorBuilder = new EmbedAuthorBuilder
+            {
+                Name = "GamoTranslate",
+                IconUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fapitracker.io%2Fa%2Fdeepl&psig=AOvVaw028t84t0CBC87q4q-IuCMc&ust=1650642593447000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMDqzf3ApfcCFQAAAAAdAAAAABAO",
+                Url = "https://gamocologist.com/bots/gamotranslator"
+            };
             return embedAuthorBuilder;
         }
 
@@ -93,11 +95,11 @@ namespace TranslatorBot.Modules.Translation
             possibleLanguages.AppendLine(":arrow_right: Italian");
             possibleLanguages.AppendLine(":arrow_right: Japanese");
             possibleLanguages.AppendLine(":arrow_right: Latvian");
-            possibleLanguages.AppendLine(":arrow_right: Lithunian");
+            possibleLanguages.AppendLine(":arrow_right: Lithuanian");
             possibleLanguages.AppendLine(":arrow_right: Polish");
-            possibleLanguages.AppendLine(":arrow_right: Portugueuse");
-            possibleLanguages.AppendLine(":arrow_right: Portugueuse Brazil or Portugueuse (BZ)");
-            possibleLanguages.AppendLine(":arrow_right: Portugueuse Portgual or Portugueuse (PT)");
+            possibleLanguages.AppendLine(":arrow_right: Portuguese");
+            possibleLanguages.AppendLine(":arrow_right: Portuguese Brazil or Portuguese (BZ)");
+            possibleLanguages.AppendLine(":arrow_right: Portuguese Portugal or Portuguese (PT)");
             possibleLanguages.AppendLine(":arrow_right: Romanian");
             possibleLanguages.AppendLine(":arrow_right: Russian");
             possibleLanguages.AppendLine(":arrow_right: Slovak");
@@ -124,9 +126,11 @@ namespace TranslatorBot.Modules.Translation
             bool isAutomatic, (string translatedText, string detectedSourceLanguageCode) translationResult)
         {
             EmbedBuilder translationResultEmbedBuilder = BuildBotEmbedBase();
-            EmbedFieldBuilder translatedTextField = new EmbedFieldBuilder();
+            EmbedFieldBuilder translatedTextField = new EmbedFieldBuilder
+            {
+                IsInline = false
+            };
 
-            translatedTextField.IsInline = false;
             string destinationLanguage = LanguageModelConversions.ConvertToLanguageName(languageCodeDestination);
             string languageField;
             if (isAutomatic)
@@ -152,10 +156,12 @@ namespace TranslatorBot.Modules.Translation
 
             for (int i = 1; i < numberOfSegments; i++)
             {
-                EmbedFieldBuilder segmentFieldBuilder = new EmbedFieldBuilder();
-                segmentFieldBuilder.Name = "\u200b";
-                segmentFieldBuilder.IsInline = true;
-                segmentFieldBuilder.Value = segmentedText[i];
+                EmbedFieldBuilder segmentFieldBuilder = new EmbedFieldBuilder
+                {
+                    Name = "\u200b",
+                    IsInline = true,
+                    Value = segmentedText[i]
+                };
                 translationResultEmbedBuilder.AddField(segmentFieldBuilder);
             }
 
@@ -171,11 +177,13 @@ namespace TranslatorBot.Modules.Translation
         {
             EmbedBuilder limitReachedEmbedBuilder = BuildBotEmbedBase();
 
-            EmbedFieldBuilder limitReachedField = new EmbedFieldBuilder();
-            limitReachedField.Name = "Translation Limit Reached";
-            limitReachedField.IsInline = false;
-            limitReachedField.Value = "This bot uses an api which is limited to 500 000 characters per month.\n" +
-                                      "The limit has been reached and thus no more translations will be performed until the end of the month.";
+            EmbedFieldBuilder limitReachedField = new EmbedFieldBuilder
+            {
+                Name = "Translation Limit Reached",
+                IsInline = false,
+                Value = "This bot uses an api which is limited to 500 000 characters per month.\n" +
+                        "The limit has been reached and thus no more translations will be performed until the end of the month."
+            };
             limitReachedEmbedBuilder.AddField(limitReachedField);
 
             Embed limitReachedEmbed = limitReachedEmbedBuilder.Build();
@@ -191,13 +199,15 @@ namespace TranslatorBot.Modules.Translation
         {
             EmbedBuilder limitReachedEmbedBuilder = BuildBotEmbedBase();
 
-            EmbedFieldBuilder emptyTextFieldBuilder = new EmbedFieldBuilder();
-            emptyTextFieldBuilder.Name = "Nothing provided for translation";
-            emptyTextFieldBuilder.IsInline = false;
-            emptyTextFieldBuilder.Value = "Okay Dude, look at me in the eyes :eyes: straight in the eyes:\n" +
-                                      "how do you expect me translate the absence of text, meaning, hopes and dreams?\n" +
-                                      "I can't translate something which doesn't exist.\n\n";
-            
+            EmbedFieldBuilder emptyTextFieldBuilder = new EmbedFieldBuilder
+            {
+                Name = "Nothing provided for translation",
+                IsInline = false,
+                Value = "Okay Dude, look at me in the eyes :eyes: straight in the eyes:\n" +
+                        "how do you expect me translate the absence of text, meaning, hopes and dreams?\n" +
+                        "I can't translate something which doesn't exist.\n\n"
+            };
+
             limitReachedEmbedBuilder.AddField(emptyTextFieldBuilder);
 
             Embed generateEmptyTextEmbed = limitReachedEmbedBuilder.Build();
@@ -213,12 +223,14 @@ namespace TranslatorBot.Modules.Translation
         {
             EmbedBuilder apiErrorConnectionErrorEmbedBuilder = BuildBotEmbedBase();
 
-            EmbedFieldBuilder apiConnectionErrorFieldBuilder = new EmbedFieldBuilder();
-            apiConnectionErrorFieldBuilder.Name = "Authentication for translation API missing";
-            apiConnectionErrorFieldBuilder.IsInline = false;
-            apiConnectionErrorFieldBuilder.Value = "The Gamocolgists uses the DeepL API for translation.\n" +
-                                          "The link to the API has encountered issues and is not operational.";
-            
+            EmbedFieldBuilder apiConnectionErrorFieldBuilder = new EmbedFieldBuilder
+            {
+                Name = "Authentication for translation API missing",
+                IsInline = false,
+                Value = "The Gamocolgists uses the DeepL API for translation.\n" +
+                        "The link to the API has encountered issues and is not operational."
+            };
+
             apiErrorConnectionErrorEmbedBuilder.AddField(apiConnectionErrorFieldBuilder);
 
             Embed apiConnectionErrorEmbed = apiErrorConnectionErrorEmbedBuilder.Build();
@@ -230,18 +242,20 @@ namespace TranslatorBot.Modules.Translation
         /// </summary>
         /// <returns>An <see cref="Embed"/> containing a message informing that the authentication
         /// key was missing for the API.</returns>
-        internal static Embed GenerateReconnectionEmbed(bool wasSuccesful)
+        internal static Embed GenerateReconnectionEmbed(bool wasSuccessful)
         {
             EmbedBuilder reconnectionEmbedBuilder = BuildBotEmbedBase();
 
-            EmbedFieldBuilder reconnectionEmbedField = new EmbedFieldBuilder();
-            reconnectionEmbedField.Name = wasSuccesful 
-                ? "Reconnection to DeepL API was successful."
-                : "Authentication failure when reconnecting to DeepL API.";
-            reconnectionEmbedField.IsInline = false;
-            reconnectionEmbedField.Value = wasSuccesful 
-                ? "The reconnection to the DeepL API servers was successful."
-                : "The bot failed to reconnect to the DeepL API servers.";
+            EmbedFieldBuilder reconnectionEmbedField = new EmbedFieldBuilder
+            {
+                Name = wasSuccessful 
+                    ? "Reconnection to DeepL API was successful."
+                    : "Authentication failure when reconnecting to DeepL API.",
+                IsInline = false,
+                Value = wasSuccessful 
+                    ? "The reconnection to the DeepL API servers was successful."
+                    : "The bot failed to reconnect to the DeepL API servers."
+            };
 
             reconnectionEmbedBuilder.AddField(reconnectionEmbedField);
 
