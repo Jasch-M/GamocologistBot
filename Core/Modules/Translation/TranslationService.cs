@@ -89,7 +89,6 @@ namespace Template.Modules.Translation
 
             IsTranslatorOperational = false;
             return null;
-            //"61024d7d-4f35-c948-bca2-42e1bfe7e091:fx"
         }
 
         /// <summary>
