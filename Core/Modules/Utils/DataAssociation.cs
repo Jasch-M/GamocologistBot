@@ -142,6 +142,12 @@ namespace Template.Modules.Utils
             return _data.TryGetValue(propertyName, out propertyValue!);
         }
 
+        public string GetValueOrDefault(string propertyName, string defaultValue)
+        {
+            bool wasFound = _data.TryGetValue(propertyName, out string propertyValue);
+            return wasFound ? propertyValue : defaultValue;
+        } 
+
         public bool SetValue(string propertyName, string value)
         {
             if (!ContainsPropertyName(propertyName)) return false;
@@ -310,6 +316,13 @@ namespace Template.Modules.Utils
             
             string dataRepresentation = dataRepresentationBuilder.ToString();
             return dataRepresentation;
+        }
+        
+        public bool Save()
+        {
+            if (!FileExists()) return false;
+            SaveData(_path, _data);
+            return true;
         }
     }
 }
