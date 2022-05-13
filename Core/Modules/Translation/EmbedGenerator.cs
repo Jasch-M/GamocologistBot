@@ -18,6 +18,7 @@ namespace Template.Modules.Translation
         internal static Embed GenerateUnknownLanguageEmbed(string languageInput)
         {
             EmbedBuilder unknownLanguageEmbedBuilder = BuildBotEmbedBase();
+            unknownLanguageEmbedBuilder.Color = Color.Red;
 
             EmbedFieldBuilder unknownLanguageField = new EmbedFieldBuilder
             {
@@ -126,6 +127,7 @@ namespace Template.Modules.Translation
             bool isAutomatic, (string translatedText, string detectedSourceLanguageCode) translationResult)
         {
             EmbedBuilder translationResultEmbedBuilder = BuildBotEmbedBase();
+            translationResultEmbedBuilder.Color = Color.DarkGreen;
             EmbedFieldBuilder translatedTextField = new EmbedFieldBuilder
             {
                 IsInline = false
@@ -176,6 +178,7 @@ namespace Template.Modules.Translation
         internal static Embed GenerateLimitReachedEmbed()
         {
             EmbedBuilder limitReachedEmbedBuilder = BuildBotEmbedBase();
+            limitReachedEmbedBuilder.Color = Color.Orange;
 
             EmbedFieldBuilder limitReachedField = new EmbedFieldBuilder
             {
@@ -198,6 +201,7 @@ namespace Template.Modules.Translation
         internal static Embed GenerateEmptyTextEmbed()
         {
             EmbedBuilder limitReachedEmbedBuilder = BuildBotEmbedBase();
+            limitReachedEmbedBuilder.Color = Color.Red;
 
             EmbedFieldBuilder emptyTextFieldBuilder = new EmbedFieldBuilder
             {
@@ -222,6 +226,7 @@ namespace Template.Modules.Translation
         internal static Embed GenerateApiConnectionErrorEmbed()
         {
             EmbedBuilder apiErrorConnectionErrorEmbedBuilder = BuildBotEmbedBase();
+            apiErrorConnectionErrorEmbedBuilder.Color = Color.DarkRed;
 
             EmbedFieldBuilder apiConnectionErrorFieldBuilder = new EmbedFieldBuilder
             {
@@ -257,6 +262,7 @@ namespace Template.Modules.Translation
                     : "The bot failed to reconnect to the DeepL API servers."
             };
 
+            reconnectionEmbedBuilder.Color = wasSuccessful ? Color.DarkGreen : Color.Red;
             reconnectionEmbedBuilder.AddField(reconnectionEmbedField);
 
             Embed reconnectionEmbed = reconnectionEmbedBuilder.Build();
