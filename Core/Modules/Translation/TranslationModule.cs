@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
-using Template.Modules.Translation;
 
-namespace Template.Modules
+namespace Template.Modules.Translation
 {
     [Name("Translation")]
     [Summary("Automatic, quick and simple translation")]
