@@ -1,6 +1,8 @@
 ﻿namespace Template.Modules.Translation
 {
-    
+    /// <summary>
+    /// Provides static methods to convert between different language representations and codes.
+    /// </summary>
     public static class LanguageModelConversions
     {
         /// <summary>
