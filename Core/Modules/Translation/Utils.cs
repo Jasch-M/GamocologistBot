@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace Template.Modules.Translation
+namespace GamocologistBot.Modules.Translation
 {
     /// <summary>
     ///     The Utils class provides many utility functions for other functions in the program.
@@ -64,9 +64,9 @@ namespace Template.Modules.Translation
         internal static List<string> DivideUpTextIntoFragmentsNicely(string text, int maxLength = 1024,
             string initialText = "")
         {
-            List<string> segments = new List<string>();
+            List<string> segments = new();
             int initialTextLength = initialText.Length;
-            StringBuilder segmentBuilder = new StringBuilder(initialText);
+            StringBuilder segmentBuilder = new(initialText);
             int textSize = text.Length;
             int lastPeriod = -1;
             int localIndex = initialTextLength;

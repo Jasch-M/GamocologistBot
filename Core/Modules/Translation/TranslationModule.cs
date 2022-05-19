@@ -2,7 +2,7 @@
 using Discord;
 using Discord.Commands;
 
-namespace Template.Modules.Translation
+namespace GamocologistBot.Modules.Translation
 {
     [Name("Translation")]
     [Summary("Automatic, quick and simple translation")]

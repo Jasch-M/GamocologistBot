@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Discord;
 
-namespace Template.Modules.Translation
+namespace GamocologistBot.Modules.Translation
 {
     /// <summary>
     /// Contains methods for generating bot responses as embedded messages.
@@ -50,7 +50,8 @@ namespace Template.Modules.Translation
                 Color = Color.DarkBlue,
                 Timestamp = DateTimeOffset.Now,
                 Title = "Translation Results",
-                //botEmbedBase.ImageUrl = "https://cdns.c3dt.com/preview/9825728-com.deepl.translate.alllanguagetranslator.jpg";
+                //old link for translator image:
+                //"https://cdns.c3dt.com/preview/9825728-com.deepl.translate.alllanguagetranslator.jpg"
                 Url = "https://gamocologist.com/bots/gamotranslator"
             };
             return botEmbedBase;

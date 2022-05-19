@@ -2,10 +2,10 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>Template</RootNamespace>
-        <LangVersion>latest</LangVersion>
-        <Authors>Garrett Bromley</Authors>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>GamocologistBot</RootNamespace>
+        <LangVersion>10</LangVersion>
+        <Authors>Jasch</Authors>
     </PropertyGroup>
 
     <ItemGroup>

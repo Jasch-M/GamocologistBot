@@ -1,4 +1,4 @@
-﻿namespace Template.Modules.Translation
+﻿namespace GamocologistBot.Modules.Translation
 {
     /// <summary>
     /// Provides static methods to convert between different language representations and codes.

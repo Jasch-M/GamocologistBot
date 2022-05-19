@@ -1,4 +1,4 @@
-﻿namespace Template.Modules.Translation
+﻿namespace GamocologistBot.Modules.Translation
 {
     /// <summary>
     /// An enum representing a language which is supported by the translation engine.

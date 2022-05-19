@@ -4,7 +4,7 @@ using DeepL;
 using DeepL.Model;
 using Template.Modules.Utils;
 
-namespace Template.Modules.Translation
+namespace GamocologistBot.Modules.Translation
 {
     /// <summary>
     /// This static class provides interactions with the translation engine.
