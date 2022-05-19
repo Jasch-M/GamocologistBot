@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>Template</RootNamespace>
         <LangVersion>latest</LangVersion>
         <Authors>Garrett Bromley</Authors>
@@ -17,6 +17,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Spire.Email" Version="5.5.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,6 +26,8 @@
 
     <ItemGroup>
       <Folder Include="Modules\ChannelUpdate" />
+      <Folder Include="Modules\Mazzin\Presets" />
+      <Folder Include="Services\Data" />
     </ItemGroup>
 
 </Project>

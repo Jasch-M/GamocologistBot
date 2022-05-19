@@ -11,15 +11,30 @@ namespace Template.Modules.Utils
     public class DataAssociation
     {
         private string _path;
-        private readonly Dictionary<string, string> _data;
+        private Dictionary<string, string> _data;
         private int _numberOfPropreties;
 
-        public DataAssociation(string path)
+        private DataAssociation()
+        { }
+
+        public static DataAssociation FromData(string data)
         {
-            _path = path;
-            (Dictionary<string, string> data, int amountOfEntries) loaderResponse = LoadOrCreate(path);
-            _data = loaderResponse.data;
-            _numberOfPropreties = loaderResponse.amountOfEntries;
+            DataAssociation dataAssociation = new();
+            dataAssociation.Path = "";
+            (Dictionary<string, string> data, int numberOfProperties) parsedData = LoadFromData(data);
+            dataAssociation._data = parsedData.data;
+            dataAssociation._numberOfPropreties = parsedData.numberOfProperties;
+            return dataAssociation;
+        }
+
+        public static DataAssociation FromFile(string path)
+        {
+            DataAssociation dataAssociation = new();
+            dataAssociation._path = path;
+            (Dictionary<string, string> data, int numberOfProperties) parsedData = LoadOrCreate(path);
+            dataAssociation._data = parsedData.data;
+            dataAssociation._numberOfPropreties = parsedData.numberOfProperties;
+            return dataAssociation;
         }
 
         public string Path
@@ -170,7 +185,7 @@ namespace Template.Modules.Utils
             Dictionary<string, string> loadedData;
             if (FileExists(path))
             {
-                using StreamReader reader = new StreamReader(path);
+                using StreamReader reader = new(path);
                 string fileContents = reader.ReadToEnd();
                 (Dictionary<string, string> data, int numberOfPropreties) parserResponse = ParseContentsFromFile(fileContents);
                 reader.Close();
@@ -183,36 +198,42 @@ namespace Template.Modules.Utils
             return (loadedData, 0);
         }
 
+        private static (Dictionary<string, string>, int) LoadFromData(string data)
+        {
+            (Dictionary<string, string> data, int numberOfPropreties) parserResponse = ParseContentsFromFile(data);
+            return parserResponse;
+        }
+
         private static (Dictionary<string, string>, int) ParseContentsFromFile(string contents)
         {
-            Dictionary<string, string> data = new Dictionary<string, string>();
-            int numberOfPropreties = 0;
+            Dictionary<string, string> data = new();
+            int numberOfProperties = 0;
 
-            StringBuilder currentValueLoader = new StringBuilder();
-            bool isPropretyName = false;
-            bool isPropretyValue = true;
-            string currentPropretyName = "";
+            StringBuilder currentValueLoader = new();
+            bool isPropertyName = false;
+            bool isPropertyValue = true;
+            string currentPropertyName = "";
             bool isEscaped = false;
-            bool isInProprety = false;
+            bool isInProperty = false;
             
             foreach (char c in contents)
             {
-                isEscaped = ParseCharacters(c, isEscaped, currentValueLoader, data, ref isInProprety, 
-                    ref numberOfPropreties, ref currentPropretyName, ref isPropretyName, ref isPropretyValue);
+                isEscaped = ParseCharacters(c, isEscaped, currentValueLoader, data, ref isInProperty, 
+                    ref numberOfProperties, ref currentPropertyName, ref isPropertyName, ref isPropertyValue);
             }
 
-            if (isPropretyName)
+            if (isPropertyName)
             {
-                if (isInProprety) 
-                    currentPropretyName = currentValueLoader.ToString();
+                if (isInProperty) 
+                    currentPropertyName = currentValueLoader.ToString();
 
-                bool wasAdded = data.TryAdd(currentPropretyName, "");
+                bool wasAdded = data.TryAdd(currentPropertyName, "");
                 
                 if (wasAdded)
-                    numberOfPropreties += 1;
+                    numberOfProperties += 1;
             }
             
-            return (data, numberOfPropreties);
+            return (data, numberOfProperties);
         }
 
         private static bool ParseCharacters(char c, bool isEscaped, StringBuilder currentValueLoader, Dictionary<string, string> data,

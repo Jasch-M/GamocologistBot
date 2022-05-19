@@ -17,6 +17,7 @@ public class IsAuthorizedToUseMazzinFeature : PreconditionAttribute
             ? PreconditionResult.FromSuccess() 
             : PreconditionResult.FromError("You are not authorized to use this command."));
 
+        
         return preconditionResult;
     }
 }

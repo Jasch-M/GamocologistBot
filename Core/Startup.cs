@@ -5,16 +5,23 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Template.Modules.Utils.Discord;
+using Template.Services;
 using TranslatorBot.Services;
 
 namespace TranslatorBot
 {
     public class Startup
     {
+        internal static Bot Bot;
+
+        internal static EmailService Email = new();
         public Startup(string[] args)
         {
+            string baseDirectory = AppContext.BaseDirectory;
+            string configFilePath = $"{baseDirectory}/../../../";
             IConfigurationBuilder builder = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
+                .SetBasePath(configFilePath)
                 .AddJsonFile("appsettings.json");
             Configuration = builder.Build();
         }
@@ -23,7 +30,7 @@ namespace TranslatorBot
 
         public static async Task RunAsync(string[] args)
         {
-            Startup startup = new Startup(args);
+            Startup startup = new(args);
             await startup.RunAsync();
         }
 
@@ -43,12 +50,16 @@ namespace TranslatorBot
 
         private void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
-                {
-                    // Add discord to the collection
-                    LogLevel = LogSeverity.Verbose, // Tell the logger to give Verbose amount of info
-                    MessageCacheSize = 1000 // Cache 1,000 messages per channel
-                }))
+            DiscordSocketClient bot = new DiscordSocketClient(new DiscordSocketConfig
+            {
+                // Add discord to the collection
+                LogLevel = LogSeverity.Verbose, // Tell the logger to give Verbose amount of info
+                MessageCacheSize = 1000 // Cache 1,000 messages per channel
+            });
+
+            Bot = new Bot(bot);
+            
+            services.AddSingleton(bot)
                 .AddSingleton(new CommandService(new CommandServiceConfig
                 {
                     // Add the command service to the collection

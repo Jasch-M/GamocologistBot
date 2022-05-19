@@ -31,7 +31,7 @@ public class GoalList
 
     public GoalList(string dataLocation)
     {
-        DataAssociation data = new(dataLocation);
+        DataAssociation data = DataAssociation.FromFile(dataLocation);
         Dictionary<string, string>.ValueCollection dataStringDataCollection = data.Values;
         List<string> dataStringData = dataStringDataCollection.ToList();
         _goals = new HashSet<Goal>();
@@ -134,7 +134,7 @@ public class GoalList
 
     internal bool Save(string location)
     {
-        DataAssociation data = new(location);
+        DataAssociation data = DataAssociation.FromFile(location);
         foreach (Goal goal in Goals)
         {
             string goalName = goal.Name;

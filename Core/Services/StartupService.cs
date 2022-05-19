@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Discord;
@@ -6,7 +7,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 
-namespace TranslatorBot.Services
+namespace Template.Services
 {
     /// <summary>
     /// Service run at startup to initialize all key services and fetch configurations.
@@ -56,10 +57,10 @@ namespace TranslatorBot.Services
 
         public async Task StartAsync()
         {
-            var discordToken = _config["tokens:discord"]; // Get the discord token from the config file
+            string discordToken = _config["tokens:discord"]; // Get the discord token from the config file
             if (string.IsNullOrWhiteSpace(discordToken))
-                throw new Exception(
-                    "Please enter your bots token into the `appsettings.json` file found in the applications root directory.");
+                throw new FileLoadException(
+                    "Please enter your bots token into the `appsettings.json` file found in the Core directory.");
 
             await _discord.LoginAsync(TokenType.Bot, discordToken); // Login to discord
             await _discord.StartAsync(); // Connect to the websocket

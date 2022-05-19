@@ -18,7 +18,7 @@ public class PrivateRoomService
     private void LoadConfiguration()
     {
         string dataAssociationConfigPath = $"{DataAssociationBasePath}/config.txt";
-        _data = new DataAssociation(dataAssociationConfigPath);
+        _data = DataAssociation.FromFile(dataAssociationConfigPath);
         bool hasName = _data.TryGetValue("default name", out string name);
         _name = hasName ? name : "PrivateRoomDefaultName";
     }

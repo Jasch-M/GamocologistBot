@@ -68,7 +68,7 @@ namespace Template.Modules.Translation
         /// <returns>The set up translator. If the value is null, then the operation was unsuccessful</returns>
         private static Translator TranslatorSetUp()
         {
-            DataAssociation dataAssociation = new DataAssociation("../../../Modules/Translation/translator_data.txt");
+            DataAssociation dataAssociation = DataAssociation.FromFile("../../../Modules/Translation/translator_data.txt");
             bool wasObtained = dataAssociation.TryGetValue("DeepL authKey", out string authenticationKey);
             if (wasObtained)
             {
